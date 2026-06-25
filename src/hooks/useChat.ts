@@ -62,6 +62,7 @@ export function useChat() {
       };
 
       addMessage(chatId, aiMessage);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || 'Failed to get response');
       console.error('Chat error:', err);

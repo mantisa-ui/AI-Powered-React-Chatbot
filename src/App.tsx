@@ -1,8 +1,12 @@
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import { theme } from './theme/theme';
+import { lightTheme, darkTheme } from './theme/theme';
+import { useThemeStore } from './hooks/useTheme';
 import ChatWindow from './components/ChatWindow';
 
 function App() {
+  const { mode } = useThemeStore();
+  const theme = mode === 'dark' ? darkTheme : lightTheme;
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

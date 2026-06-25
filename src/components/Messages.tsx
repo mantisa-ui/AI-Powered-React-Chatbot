@@ -1,5 +1,6 @@
 import { Box, Avatar, Paper, Typography } from '@mui/material';
 import { Person, SmartToy } from '@mui/icons-material';
+import MarkdownRenderer from './MarkdownRenderer';
 import type { Message as MessageType } from '../types/chat';
 
 interface MessageProps {
@@ -31,7 +32,6 @@ export default function Message({ message }: MessageProps) {
         },
       }}
     >
-      {/* Avatar */}
       <Avatar
         sx={{
           bgcolor: isUser ? 'primary.main' : 'secondary.main',
@@ -42,8 +42,14 @@ export default function Message({ message }: MessageProps) {
         {isUser ? <Person fontSize="small" /> : <SmartToy fontSize="small" />}
       </Avatar>
 
-      {/* Message Bubble */}
-      <Box sx={{ maxWidth: '70%', display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start' }}>
+      <Box
+        sx={{
+          maxWidth: '75%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: isUser ? 'flex-end' : 'flex-start',
+        }}
+      >
         <Paper
           elevation={1}
           sx={{
@@ -56,9 +62,7 @@ export default function Message({ message }: MessageProps) {
             borderTopLeftRadius: isUser ? 2 : 0,
           }}
         >
-          <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-            {message.content}
-          </Typography>
+          <MarkdownRenderer content={message.content} isUser={isUser} />
         </Paper>
         <Typography
           variant="caption"

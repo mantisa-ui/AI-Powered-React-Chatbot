@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Typography, Box, IconButton, Tooltip } from '@mui/material';
-import { Menu as MenuIcon, SmartToy } from '@mui/icons-material';
+import { Menu as MenuIcon, SmartToy, DarkMode, LightMode } from '@mui/icons-material';
+import { useThemeStore } from '../hooks/useTheme';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -7,6 +8,8 @@ interface HeaderProps {
 }
 
 export default function Header({ onMenuClick, chatTitle }: HeaderProps) {
+  const { mode, toggleTheme } = useThemeStore();
+
   return (
     <AppBar
       position="static"
@@ -16,7 +19,6 @@ export default function Header({ onMenuClick, chatTitle }: HeaderProps) {
       }}
     >
       <Toolbar>
-        {/* Mobile menu button - hidden on desktop */}
         <Tooltip title="Open chats">
           <IconButton
             onClick={onMenuClick}
@@ -41,6 +43,21 @@ export default function Header({ onMenuClick, chatTitle }: HeaderProps) {
             </Typography>
           </Box>
         </Box>
+
+        {/* Dark Mode Toggle */}
+        <Tooltip title={mode === 'dark' ? 'Light mode' : 'Dark mode'}>
+          <IconButton
+            onClick={toggleTheme}
+            sx={{
+              color: 'white',
+              '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
+              transition: 'transform 0.3s',
+              '&:active': { transform: 'rotate(180deg)' },
+            }}
+          >
+            {mode === 'dark' ? <LightMode /> : <DarkMode />}
+          </IconButton>
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );
